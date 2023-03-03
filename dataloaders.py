@@ -345,7 +345,8 @@ class dataloaderObj:
        for study_id in train_ids_list:
 
            # Load the 3D image
-           img_fname = str(self.data_path_tr_cropped)+str(study_id)+'/img_cropped.nii.gz'
+           # img_fname = str(self.data_path_tr_cropped)+str(study_id)+'/img_cropped.nii.gz'
+           img_fname = str(self.data_path_tr_cropped) + '/output' + str(study_id) + '/img_cropped.nii.gz'
            img_tmp_load = nib.load(img_fname)
            img_tmp=img_tmp_load.get_data()
 

@@ -109,7 +109,7 @@ parser.add_argument('--no_of_neg_regs_override', type=int, default=4)
 parser.add_argument('--bt_size', type=int,default=12)
 
 #no of iterations to run
-parser.add_argument('--n_iter', type=int, default=10001)
+parser.add_argument('--n_iter', type=int, default=100)
 
 parse_config = parser.parse_args()
 #parse_config = parser.parse_args(args=[])
@@ -211,42 +211,55 @@ print('loaded encoder weight values from pre-trained model with global contrasti
 ######################################
 #define directory to save the pre-training model of decoder with encoder weights frozen (encoder weights obtained from earlier pre-training step)
 
-save_dir=str(cfg.srt_dir)+'/models/'+str(parse_config.dataset)+'/trained_models/pretrain_decoder_with_local_contrastive_loss/'
 
-save_dir=str(save_dir)+'/load_encoder_wgts_from_pretrained_model/'
 
-if(parse_config.data_aug==0):
-    save_dir=str(save_dir)+'/no_data_aug/'
-else:
-    save_dir=str(save_dir)+'/with_data_aug/'
+#### commit here
 
-save_dir=str(save_dir)+'local_loss_exp_no_'+str(parse_config.local_loss_exp_no)+'_global_loss_exp_no_'+str(parse_config.global_loss_exp_no)\
-             +'_n_parts_'+str(parse_config.n_parts)+'/'
+#### save dir 2
 
-save_dir=str(save_dir)+'temp_fac_'+str(parse_config.temp_fac)+'/'
+save_dir = str(cfg.srt_dir) + '/models/' + str(
+    parse_config.dataset) + '/trained_models/pretrain_decoder_with_local_contrastive_loss/'
 
-if(parse_config.local_reg_size==1):
-    if(parse_config.wgt_en==1):
-        save_dir=str(save_dir)+'local_reg_size_3x3_wgt_en/'
-    else:
-        save_dir=str(save_dir)+'local_reg_size_3x3_wgt_dis/'
-else:
-    save_dir=str(save_dir)+'local_reg_size_1x1_wgt_dis/'
+# save_dir = str(save_dir) + 'bt_' + str(parse_config.bt_size) + '/'
+save_dir = str(save_dir) + 'ct_' + str(parse_config.bt_size) + '/'
 
-save_dir=str(save_dir)+'no_of_decoder_blocks_'+str(parse_config.no_of_decoder_blocks)+'/'
 
-save_dir=str(save_dir)+'no_of_local_regions_'+str(parse_config.no_of_local_regions)
-
-if(parse_config.local_loss_exp_no==1):
-    #parse_config.no_of_neg_local_regions=4
-    parse_config.no_of_neg_regs_override=4
-    save_dir=save_dir+'_no_of_neg_regions_'+str(parse_config.no_of_neg_regs_override)+'/'
-else:
-    save_dir=save_dir+'_no_of_neg_regions_'+str(parse_config.no_of_neg_local_regions)+'/'
-
-save_dir=str(save_dir)+'pretrain_only_decoder_weights/'
-
-save_dir=str(save_dir)+str(parse_config.no_of_tr_imgs)+'/'+str(parse_config.comb_tr_imgs)+'_v'+str(parse_config.ver)+'/enc_bbox_dim_'+str(parse_config.bbox_dim)+'_n_iter_'+str(parse_config.n_iter)+'_lr_reg_'+str(parse_config.lr_reg)+'/'
+# save_dir=str(cfg.srt_dir)+'/models/'+str(parse_config.dataset)+'/trained_models/pretrain_decoder_with_local_contrastive_loss/'
+#
+# save_dir=str(save_dir)+'/load_encoder_wgts_from_pretrained_model/'
+#
+# if(parse_config.data_aug==0):
+#     save_dir=str(save_dir)+'/no_data_aug/'
+# else:
+#     save_dir=str(save_dir)+'/with_data_aug/'
+#
+# save_dir=str(save_dir)+'local_loss_exp_no_'+str(parse_config.local_loss_exp_no)+'_global_loss_exp_no_'+str(parse_config.global_loss_exp_no)\
+#              +'_n_parts_'+str(parse_config.n_parts)+'/'
+#
+# save_dir=str(save_dir)+'temp_fac_'+str(parse_config.temp_fac)+'/'
+#
+# if(parse_config.local_reg_size==1):
+#     if(parse_config.wgt_en==1):
+#         save_dir=str(save_dir)+'local_reg_size_3x3_wgt_en/'
+#     else:
+#         save_dir=str(save_dir)+'local_reg_size_3x3_wgt_dis/'
+# else:
+#     save_dir=str(save_dir)+'local_reg_size_1x1_wgt_dis/'
+#
+# save_dir=str(save_dir)+'no_of_decoder_blocks_'+str(parse_config.no_of_decoder_blocks)+'/'
+#
+# save_dir=str(save_dir)+'no_of_local_regions_'+str(parse_config.no_of_local_regions)
+#
+# if(parse_config.local_loss_exp_no==1):
+#     #parse_config.no_of_neg_local_regions=4
+#     parse_config.no_of_neg_regs_override=4
+#     save_dir=save_dir+'_no_of_neg_regions_'+str(parse_config.no_of_neg_regs_override)+'/'
+# else:
+#     save_dir=save_dir+'_no_of_neg_regions_'+str(parse_config.no_of_neg_local_regions)+'/'
+#
+# save_dir=str(save_dir)+'pretrain_only_decoder_weights/'
+#
+# save_dir=str(save_dir)+str(parse_config.no_of_tr_imgs)+'/'+str(parse_config.comb_tr_imgs)+'_v'+str(parse_config.ver)+'/enc_bbox_dim_'+str(parse_config.bbox_dim)+'_n_iter_'+str(parse_config.n_iter)+'_lr_reg_'+str(parse_config.lr_reg)+'/'
 
 print('save dir ',save_dir)
 ######################################

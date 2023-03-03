@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:/Users/2468810/code/domain_specific_cl-main/models/acdc/trained_models/pretrain_decoder_with_local_contrastive_loss/ct_12/train_decoder_wgts_acdc_epochs_99.ckpt"
+all_model_checkpoint_paths: "C:/Users/2468810/code/domain_specific_cl-main/models/acdc/trained_models/pretrain_decoder_with_local_contrastive_loss/ct_12/train_decoder_wgts_acdc_epochs_99.ckpt"
