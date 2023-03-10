@@ -158,39 +158,39 @@ val_step_update=cfg.val_step_update
 #  load encoder + 'l' decoder blocks pre-trained weights from pre-trained model stage wise with global and local loss respectively.
 ######################################
 #define directory where pre-trained encoder + decoder model was saved
-save_dir=str(cfg.srt_dir)+'/models/'+str(parse_config.dataset)+'/trained_models/pretrain_decoder_with_local_contrastive_loss/'
+save_dir=str(cfg.srt_dir)+'/models/'+str(parse_config.dataset)+'/decoderlocal/'
 
-save_dir=str(save_dir)+'/load_encoder_wgts_from_pretrained_model/'
+# save_dir=str(save_dir)+'/load_encoder_wgts_from_pretrained_model/'
 
-if(parse_config.pretr_data_aug==0):
-    save_dir=str(save_dir)+'/no_data_aug/'
-else:
-    save_dir=str(save_dir)+'/with_data_aug/'
+# if(parse_config.pretr_data_aug==0):
+#     save_dir=str(save_dir)+'/noaug/'
+# else:
+#     save_dir=str(save_dir)+'/withaug/'
+#
+# save_dir=str(save_dir)+'local'+str(parse_config.local_loss_exp_no)+'global'+str(parse_config.global_loss_exp_no)\
+#              +'parts'+str(parse_config.n_parts)+'/'
 
-save_dir=str(save_dir)+'local_loss_exp_no_'+str(parse_config.local_loss_exp_no)+'_global_loss_exp_no_'+str(parse_config.global_loss_exp_no)\
-             +'_n_parts_'+str(parse_config.n_parts)+'/'
+save_dir=str(save_dir)+'temp'+str(parse_config.temp_fac)+'/'
 
-save_dir=str(save_dir)+'temp_fac_'+str(parse_config.temp_fac)+'/'
-
-if(parse_config.local_reg_size==1):
-    if(parse_config.wgt_en==1):
-        save_dir=str(save_dir)+'local_reg_size_3x3_wgt_en/'
-    else:
-        save_dir=str(save_dir)+'local_reg_size_3x3_wgt_dis/'
-else:
-    save_dir=str(save_dir)+'local_reg_size_1x1_wgt_dis/'
-
-save_dir = str(save_dir) + 'no_of_decoder_blocks_' + str(parse_config.no_of_decoder_blocks) + '/'
-
-save_dir=str(save_dir)+'no_of_local_regions_'+str(parse_config.no_of_local_regions)
+# if(parse_config.local_reg_size==1):
+#     if(parse_config.wgt_en==1):
+#         save_dir=str(save_dir)+'en/'
+#     else:
+#         save_dir=str(save_dir)+'dis/'
+# else:
+#     save_dir=str(save_dir)+'dis/'
+#
+# save_dir = str(save_dir) + 'blocks_' + str(parse_config.no_of_decoder_blocks) + '/'
+#
+# save_dir=str(save_dir)+'regions_'+str(parse_config.no_of_local_regions)
 
 if(parse_config.local_loss_exp_no==1):
     parse_config.no_of_neg_regs_override=4
-    save_dir=save_dir+'_no_of_neg_regions_'+str(parse_config.no_of_neg_regs_override)+'/'
+    save_dir=save_dir+'regions_'+str(parse_config.no_of_neg_regs_override)+'/'
 else:
-    save_dir=save_dir+'_no_of_neg_regions_'+str(parse_config.no_of_neg_local_regions)+'/'
+    save_dir=save_dir+'regions_'+str(parse_config.no_of_neg_local_regions)+'/'
 
-save_dir=str(save_dir)+'pretrain_only_decoder_weights/'
+save_dir=str(save_dir)+'weights/'
 
 save_dir=str(save_dir)+str(parse_config.pretr_no_of_tr_imgs)+'/'+str(parse_config.pretr_comb_tr_imgs)+'_v'+str(parse_config.pretr_ver)+'/enc_bbox_dim_'+str(parse_config.pretr_cont_bbox_dim)+'_n_iter_'+str(parse_config.pretr_n_iter)+'_lr_reg_'+str(parse_config.lr_reg)+'/'
 
@@ -231,14 +231,14 @@ print('loaded encoder + l decoder blocks weight values from pre-trained model wi
 # Define final U-net model & directory to save - for segmentation task
 #######################################
 #define directory to save fine-tuned model
-save_dir=str(cfg.srt_dir)+'/models/'+str(parse_config.dataset)+'/trained_models/fine_tune_on_pretrained_encoder_and_decoder_net/'
+save_dir=str(cfg.srt_dir)+'/models/'+str(parse_config.dataset)+'/fine_tune_on_pretrained_encoder_and_decoder_net/'
 
 if(parse_config.data_aug==0):
-    save_dir=str(save_dir)+'/no_data_aug/'
+    save_dir=str(save_dir)+'noaug/'
     parse_config.rd_en,parse_config.ri_en=0,0
     parse_config.rd_ni,parse_config.en_1hot=0,0
 else:
-    save_dir=str(save_dir)+'/with_data_aug/'
+    save_dir=str(save_dir)+'/withaug/'
 
 if(parse_config.rd_en==1 and parse_config.ri_en==1):
     save_dir=str(save_dir)+'rand_deforms_and_ints_en/'
@@ -247,31 +247,31 @@ elif(parse_config.rd_en==1):
 elif(parse_config.ri_en==1):
     save_dir=str(save_dir)+'rand_ints_en/'
 
-save_dir=str(save_dir)+'global_loss_exp_no_'+str(parse_config.global_loss_exp_no)+'_local_loss_exp_no_'+str(parse_config.local_loss_exp_no) \
-             +'_n_parts_'+str(parse_config.n_parts)+'/'
+# save_dir=str(save_dir)+'g'+str(parse_config.global_loss_exp_no)+'l'+str(parse_config.local_loss_exp_no) \
+             # +'_n'+str(parse_config.n_parts)+'/'
 
-save_dir=str(save_dir)+'temp_fac_'+str(parse_config.temp_fac)+'/'
+# save_dir=str(save_dir)+'temp_fac_'+str(parse_config.temp_fac)+'/'
 save_dir=str(save_dir)+'enc_bbox_dim_'+str(parse_config.pretr_cont_bbox_dim)+'/'
 
 if(parse_config.local_reg_size==1):
     if(parse_config.wgt_en==1):
-        save_dir=str(save_dir)+'local_reg_size_3x3_wgt_en/'
+        save_dir=str(save_dir)+'en/'
     else:
-        save_dir=str(save_dir)+'local_reg_size_3x3_wgt_dis/'
+        save_dir=str(save_dir)+'dis/'
 else:
-    save_dir=str(save_dir)+'local_reg_size_1x1_wgt_dis/'
+    save_dir=str(save_dir)+'dis/'
 
-save_dir=str(save_dir)+'no_of_decoder_blocks_'+str(parse_config.no_of_decoder_blocks)+'/'
+save_dir=str(save_dir)+'blocks_'+str(parse_config.no_of_decoder_blocks)+'/'
 
-save_dir=str(save_dir)+'no_of_local_regions_'+str(parse_config.no_of_local_regions)
+save_dir=str(save_dir)+'regions_'+str(parse_config.no_of_local_regions)
 
 if(parse_config.local_loss_exp_no==1):
     parse_config.no_of_neg_regs_override=4
-    save_dir=save_dir+'_no_of_neg_regions_'+str(parse_config.no_of_neg_regs_override)+'/'
+    save_dir=save_dir+'regions_'+str(parse_config.no_of_neg_regs_override)+'/'
 else:
-    save_dir=save_dir+'_no_of_neg_regions_'+str(parse_config.no_of_neg_local_regions)+'/'
+    save_dir=save_dir+'regions_'+str(parse_config.no_of_neg_local_regions)+'/'
 
-save_dir=str(save_dir)+'last_ep_model/'
+save_dir=str(save_dir)+'model/'
     
 save_dir=str(save_dir)+str(parse_config.no_of_tr_imgs)+'/'+str(parse_config.comb_tr_imgs)+'_v'+str(parse_config.ver)+'/unet_dsc_'+str(parse_config.dsc_loss)+'_n_iter_'+str(parse_config.n_iter)+'_lr_seg_'+str(parse_config.lr_seg)+'/'
 
